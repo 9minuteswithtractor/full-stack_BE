@@ -1,4 +1,5 @@
 import Hapi from '@hapi/hapi';
+import routes from './routes';
 
 // ================boilerplate_code ==================:
 // DUNNO this page needs to be explained ... 🤯
@@ -9,13 +10,7 @@ const start = async () => {
     host: 'localhost',
   });
 
-  server.route({
-    method: 'GET',
-    path: '/hello',
-    handler: (req, res) => {
-      return 'Yippie ka yei!';
-    },
-  });
+  routes.forEach((route) => server.route(route));
 
   await server.start();
   console.log(`Server is listening on ${server.info.uri}`);
