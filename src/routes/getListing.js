@@ -1,17 +1,19 @@
-import { fakeListings } from './fake-data';
 import { Boom } from '@hapi/boom';
+import { db } from '../database';
 
 export const getListingRoute = {
   method: 'GET',
   path: '/api/listings/{id}',
-  handler: (req, h) => {
+  handler: async (req, h) => {
     const id = req.params.id;
-    const listing = fakeListings.find((listing) => listing.id === id);
+    const { results } = await db.query('SELECT * FROM listings WHERE id=?', [
+      id,
+    ]);
+    // const listing = fakeListings.find((listing) => listing.id === id);
+    const listing = results[0];
 
     return listing;
-
     // not working with postman // DUNNO why?
     // if (!listing) throw Boom.notFound('Listing not found');
-    // return listing;
   },
 };
