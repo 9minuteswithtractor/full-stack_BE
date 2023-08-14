@@ -12,8 +12,8 @@ export const getListingRoute = {
     // const listing = fakeListings.find((listing) => listing.id === id);
     const listing = results[0];
 
+    if (!listing) throw Boom.notFound('Listing not found');
     return listing;
     // not working with postman // DUNNO why?
-    // if (!listing) throw Boom.notFound('Listing not found');
   },
 };
